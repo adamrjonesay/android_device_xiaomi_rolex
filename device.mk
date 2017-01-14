@@ -132,6 +132,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     CMDoze
 
+# Libshims
+PRODUCT_PACKAGES += \
+    libshims_ims
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8937
