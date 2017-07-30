@@ -111,16 +111,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
+    audio.primary.msm8937 \
     audio.r_submix.default \
     audio.usb.default \
-    audio.primary.msm8937 \
-    libvolumelistener \
-    tinymix \
-    libshim_sound_trigger \
     libaudio-resampler \
-    libqcompostprocbundle \
     libqcomvisualizer \
-    libqcomvoiceprocessing
+    libqcomvoiceprocessing \
+    libqcompostprocbundle \
+    tinymix
 
 # Display
 PRODUCT_PACKAGES += \
