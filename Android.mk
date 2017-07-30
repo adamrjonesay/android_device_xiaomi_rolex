@@ -23,6 +23,7 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_DEVICE),rolex)
@@ -30,8 +31,6 @@ ifeq ($(TARGET_DEVICE),rolex)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 include $(CLEAR_VARS)
-
-include device/xiaomi/rolex/kernel/AndroidKernel.mk
 
 # Create a link for the WCNSS config file, which ends up as a writable
 # version in /data/misc/wifi

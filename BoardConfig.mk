@@ -19,10 +19,6 @@ TARGET_OTA_ASSERT_DEVICE := rolex,4a,4A
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
-# Flags
-COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
-COMMON_GLOBAL_CPPFLAGS += -DDISABLE_ASHMEM_TRACKING
-
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
@@ -47,21 +43,20 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
-TARGET_CPU_CORTEX_A53 := true
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
+BOARD_KERNEL_BASE        := 0x80000000
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78B0000 androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME  := Image.gz-dtb
-BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 2048
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --kernel_offset 0x00008000
-# TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8917
-# TARGET_KERNEL_CONFIG := lineageos_rolex_defconfig
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+TARGET_KERNEL_CONFIG := rolex_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8937
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/kernel
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
@@ -110,15 +105,12 @@ BLUETOOTH_HCI_USE_MCT := true
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
-# SELinux
-include device/qcom/sepolicy/sepolicy.mk
-
 # Camera
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-COMMON_GLOBAL_CFLAGS += -DMETADATA_CAMERA_SOURCE
-COMMON_GLOBAL_CPPFLAGS += -DMETADATA_CAMERA_SOURCE
+BOARD_GLOBAL_CFLAGS += -DMETADATA_CAMERA_SOURCE
+BOARD_GLOBAL_CPPFLAGS += -DMETADATA_CAMERA_SOURCE
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
@@ -214,11 +206,14 @@ endif
 
 #PCI RCS
 TARGET_USES_PCI_RCS := false
-MALLOC_IMPL := dlmalloc
+MALLOC_SVELTE := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
 PROTOBUF_SUPPORTED := true
+
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true

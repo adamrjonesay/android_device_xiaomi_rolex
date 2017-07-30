@@ -244,6 +244,10 @@ persist.data.iwlan.enable=false
 af.fast_track_multiplier=2
 audio_hal.period_size=192
 
+# Hack HAL1
+media.stagefright.legacyencoder=true
+media.stagefright.less-secure=true
+
 import /system/vendor/vendor.prop
 import /system/vendor/default.prop
 import /system/vendor/power.prop
