@@ -239,7 +239,7 @@ PRODUCT_PACKAGES += \
     gps.msm8937
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
+    $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf
 
 # Misc dependency packages
 PRODUCT_PACKAGES += \
