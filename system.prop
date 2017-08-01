@@ -92,6 +92,7 @@ telephony.lteOnCdmaDevice=1
 #
 # System props for bluetooh
 ro.qualcomm.bt.hci_transport=smd
+ro.bluetooth.dun=true
 qcom.bluetooth.soc=smd
 # System prop to turn on hfp client
 bluetooth.hfp.client=1
