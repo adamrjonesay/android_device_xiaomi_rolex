@@ -236,7 +236,6 @@ PRODUCT_PACKAGES += \
     libwcnss_qmi \
     libwpa_client \
     hostapd \
-    dhcpcd.conf \
     wpa_supplicant \
     wpa_supplicant.conf \
     hostapd_default.conf \
@@ -245,26 +244,29 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    gps.msm8937
+    gps.msm8937 \
+	libcurl
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf
 
-# Misc dependency packages
+# Ebtables
 PRODUCT_PACKAGES += \
     ebtables \
     ethertypes \
+    libebtc	
+	
+# Misc dependency packages
+PRODUCT_PACKAGES += \
     curl \
-    libcurl \
     libnl_2 \
     libbson \
     libcnefeatureconfig \
     libtinyxml \
     libtinyxml2 \
     libnfnetlink \
-    libnetfilter_conntrack \
-    libdhcpcd
-
+    libnetfilter_conntrack
+	
 ADDITIONAL_DEFAULT_PROPERTIES += \
     sys.init_log_level=8 \
     ro.secure=0 \
