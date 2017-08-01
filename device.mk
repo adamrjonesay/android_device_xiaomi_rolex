@@ -225,6 +225,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Snap
 
+# Fs_config
+PRODUCT_PACKAGES += \
+    fs_config_files
+	
 # RIL
 PRODUCT_PACKAGES += \
     librmnetctl \
