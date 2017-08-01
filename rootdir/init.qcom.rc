@@ -1018,11 +1018,40 @@ service poweroffhandler /system/bin/poweroffhandler
     disabled
     oneshot
 
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    socket fpce stream 0666 system system
+    user  system
+    group system sdcard_rw
+    system system
+    disabled
+
+
 service gx_fpd /system/bin/gx_fpd
      class core
      user root
      group system system
      disabled
+
+service fingerprint_log /system/bin/fingerprint_log
+    class late_start
+    user system
+    group system sdcard_rw
+    disabled
+
+on property:persist.sys.fp.vendor=switchf
+    stop gx_fpd
+    setprop persist.sys.fp.vendor searchf
+    start fingerprintd
+
+on property:persist.sys.fp.onstart=1
+   start fingerprintd
+
+on property:persist.sys.wingtech.debug=1
+   start fingerprint_log
+
+on property:persist.sys.wingtech.debug=0
+   stop fingerprint_log
 
 service displayfeature /system/bin/displayfeature
     class main
