@@ -176,16 +176,28 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.class_main.sh \
+    init.mdm.sh \
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh \
     init.qcom.rc \
     init.qcom.sh \
-    init.qcom.usb.rc \
+    init.qcom.syspart_fixup.sh \
     init.qcom.usb.sh \
+    init.qcom.sensors.sh \
+    init.qcom.usb.rc \
     init.target.rc \
-    ueventd.qcom.rc
-
-PRODUCT_PACKAGES += \
+    ueventd.qcom.rc \
+    init.ath3k.bt.sh \
+    init.crda.sh \
+    init.qcom.audio.sh \
     init.qcom.bt.sh \
-    init.qcom.post_boot.sh
+    init.qcom.coex.sh \
+    init.qcom.debug.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.fm.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.power.rc
 
 # Media profile
 PRODUCT_COPY_FILES += \
