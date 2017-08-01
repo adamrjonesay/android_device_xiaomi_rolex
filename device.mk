@@ -127,7 +127,7 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8937 \
     memtrack.msm8937 \
     liboverlay \
-	libtinyxml
+    libtinyxml
 
 # Ambient display
 PRODUCT_PACKAGES += \
@@ -232,7 +232,7 @@ PRODUCT_PACKAGES += \
 	
 # RIL
 PRODUCT_PACKAGES += \
-	libcnefeatureconfig \
+    libcnefeatureconfig \
     librmnetctl \
     libxml2
 
@@ -251,7 +251,7 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8937 \
-	libcurl
+    libcurl
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf
