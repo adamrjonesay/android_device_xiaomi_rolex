@@ -126,7 +126,8 @@ PRODUCT_PACKAGES += \
     gralloc.msm8937 \
     hwcomposer.msm8937 \
     memtrack.msm8937 \
-    liboverlay
+    liboverlay \
+	libtinyxml
 
 # Ambient display
 PRODUCT_PACKAGES += \
@@ -231,6 +232,7 @@ PRODUCT_PACKAGES += \
 	
 # RIL
 PRODUCT_PACKAGES += \
+	libcnefeatureconfig \
     librmnetctl \
     libxml2
 
@@ -265,8 +267,6 @@ PRODUCT_PACKAGES += \
     curl \
     libnl_2 \
     libbson \
-    libcnefeatureconfig \
-    libtinyxml \
     libtinyxml2 \
     libnfnetlink \
     libnetfilter_conntrack
