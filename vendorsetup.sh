@@ -14,6 +14,5 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/omni_rolex.mk \
-	$(LOCAL_DIR)/full_rolex.mk
+add_lunch_combo omni_rolex-userdebug
+add_lunch_combo omni_rolex-eng

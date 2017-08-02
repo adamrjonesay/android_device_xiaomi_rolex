@@ -14,6 +14,12 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/omni_rolex.mk \
-	$(LOCAL_DIR)/full_rolex.mk
+# Specify phone tech before including full_phone
+$(call inherit-product, vendor/omni/config/gsm.mk)
+
+$(call inherit-product, device/xiaomi/rolex/full_rolex.mk)
+
+# Inherit some common Omni stuff.
+$(call inherit-product, vendor/omni/config/common.mk)
+
+PRODUCT_NAME := omni_rolex
