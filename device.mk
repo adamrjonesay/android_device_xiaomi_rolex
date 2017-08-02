@@ -1,8 +1,5 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
-
 LOCAL_PATH := device/xiaomi/rolex
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -14,10 +11,6 @@ endif
 # AAPT
 PRODUCT_AAPT_CONFIG := normal xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
-
-# Encryption
-PRODUCT_PACKAGES += \
-    libcryptfs_hw
 
 PRODUCT_COPY_FILES += \
    $(LOCAL_KERNEL):kernel
