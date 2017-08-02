@@ -640,7 +640,9 @@ service qmuxd /system/bin/qmuxd
 
 service netmgrd /system/bin/netmgrd
     class main
-    disabled
+    user root
+    group root wifi wakelock radio inet
+    writepid /dev/cpuset/system-background/tasks
 
 service ipacm-diag /system/bin/ipacm-diag
     class main
@@ -989,7 +991,6 @@ on property:persist.sys.qlogd=1
 on property:persist.sys.qlogd=0
     stop qlogd
 
-
 on property:persist.radio.otaconfig=0
     setprop persist.radio.start_ota_daemon 0
 on property:persist.radio.otaconfig=1
@@ -1081,3 +1082,28 @@ service poweroffhandler /system/bin/poweroffhandler
     group graphics audio
     disabled
     oneshot
+   
+service ppd /system/vendor/bin/mm-pp-dpps
+    class late_start
+    user system
+    group system graphics
+    socket pps stream 0660 system system
+    disabled
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+on property:init.svc.surfaceflinger=running
+    start ppd
+
+on property:init.svc.surfaceflinger=restarting
+    stop ppd
+
+on property:init.svc.zygote=stopped
+    stop ppd
+
+on property:init.svc.zygote=running
+    start ppd
+
+on property:init.svc.zygote=restarting
+    stop ppd
