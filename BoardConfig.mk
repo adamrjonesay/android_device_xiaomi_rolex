@@ -16,6 +16,8 @@
 
 LOCAL_PATH := device/xiaomi/rolex
 
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
