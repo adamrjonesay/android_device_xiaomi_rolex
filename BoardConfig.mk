@@ -64,9 +64,13 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/kernel
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_HAVE_QCOM_FM := trues
+TARGET_USE_SDCLANG := true
 
 # CMHW
 BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_HARDWARE_CLASS += \
+    hardware/cyanogen/cmhw \
+    device/xiaomi/rolex/cmhw
 
 # Powerhal
 TARGET_POWERHAL_VARIANT := qcom
@@ -188,11 +192,15 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_HAS_LARGE_FILESYSTEM := true
 
-# Use clang platform builds
-USE_CLANG_PLATFORM_BUILD := true
-
 # Dexpreopt
-DISABLE_DEXPREOPT := true
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 # Enable peripheral manager
 TARGET_PER_MGR_ENABLED := true
