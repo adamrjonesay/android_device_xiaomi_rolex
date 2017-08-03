@@ -130,7 +130,7 @@ on boot
 
     setprop wifi.interface wlan0
     
-    setprop persist.radio.start_ota_daemon 1
+    # setprop persist.radio.start_ota_daemon 1
 
 #   Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -262,6 +262,10 @@ on post-fs-data
     mkdir /data/misc/port_bridge 0770 radio radio
     chmod 0770 /data/misc/port_bridge
 
+	#create netmgr log dir
+    mkdir /data/misc/netmgr 0770 radio radio
+    chmod 0770 /data/misc/netmgr
+ 
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
     chown system system /data/connectivity
@@ -389,24 +393,31 @@ on post-fs-data
     mkdir /data/system/swap 0770 root system
     chmod 2770 /data/system/swap
 
+    # set aggressive read ahead for dm-0 and dm-1 during boot up
+    write /sys/block/dm-0/queue/read_ahead_kb 2048
+    write /sys/block/dm-1/queue/read_ahead_kb 2048
+
+    #WAPI
+    mkdir /data/misc/wapi_certificate 0770 system wifi
+	
 service perfd /system/vendor/bin/perfd
    class main
    user root
    group root readproc
    disabled
    socket perfd seqpacket 0666 root system
-   writepid /dev/cpuset/system-background/tasks
 
 service iop /system/bin/iop
     class main
     user root
     group root
     disabled
+	socket iop seqpacket 0666 root system
 
-service qcomsysd /system/bin/qcom-system-daemon
-    class main
-    user root
-    group root qcom_diag
+#service qcomsysd /system/bin/qcom-system-daemon
+#    class main
+#    user root
+#    group root qcom_diag
 
 service ssr_setup /system/bin/ssr_setup
     oneshot
@@ -443,6 +454,11 @@ on property:persist.sys.ssr.enable_ramdumps=0
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
+    #Reset read ahead for dm-0 and dm-1 to 512kb
+    write /sys/block/dm-0/queue/read_ahead_kb 512
+    write /sys/block/dm-1/queue/read_ahead_kb 512
+    #WDSP FW boot sysfs node used by STHAL
+    chown media audio /sys/kernel/wdsp0/boot
 
 on property:persist.radio.atfwd.start=false
     stop atfwd
@@ -454,16 +470,12 @@ on property:radio.atfwd.start=false
 on property:persist.debug.trace=1
     mkdir /data/core 0777 root root
     write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
-
+	
 #bug156417 zhaoqf_sh add Allow usb charging to be disabled peristently
 on property:persist.sys.chgdisabled=1
     write /sys/class/power_supply/battery/charging_enabled 0
 on property:persist.sys.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
-
-on property:bluetooth.isEnabled=true
-    start btwlancoex
-    write /sys/class/bluetooth/hci0/idle_timeout 7000
 
 on property:bluetooth.sap.status=running
     start bt-sap
@@ -500,6 +512,8 @@ on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
     start config_bt_addr
     start config_bluetooth
+	start wcnss-service
+    start cnss_diag
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -511,6 +525,7 @@ service cnd /system/bin/cnd
 service dpmd /system/bin/dpmd
     class late_start
     socket dpmd stream 660 root system
+	group system readproc
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class core
@@ -527,7 +542,7 @@ service rfs_access /system/bin/rfs_access
    group system net_raw
 
 service tftp_server /system/bin/tftp_server
-   class main
+   class core
    user root
 
 on property:wc_transport.start_hci=true
@@ -539,7 +554,7 @@ on property:wc_transport.start_hci=false
 service start_hci_filter /system/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth qcom_diag
+    group bluetooth qcom_diag system wakelock
     disabled
 
 on property:wc_transport.start_root=true
