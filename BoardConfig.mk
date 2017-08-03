@@ -188,6 +188,9 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_HAS_LARGE_FILESYSTEM := true
 
+# Use clang platform builds
+USE_CLANG_PLATFORM_BUILD := true
+
 # Dexpreopt
 DISABLE_DEXPREOPT := true
 
@@ -230,6 +233,7 @@ PROTOBUF_SUPPORTED := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH_PATH)/sepolicy
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
