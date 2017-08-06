@@ -256,7 +256,11 @@ persist.data.iwlan.enable=false
 af.fast_track_multiplier=2
 audio_hal.period_size=192
 
-# Hack HAL1
+# Hack N
+ro.def.camera.video.quality=100
+#aumenta el brillo, por defecto muy oscuro
+ro.def.camera.bright.main=middle
+media.camera.ts.monotonic=0
 media.stagefright.legacyencoder=true
 media.stagefright.less-secure=true
 
