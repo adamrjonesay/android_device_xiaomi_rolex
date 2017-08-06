@@ -229,7 +229,6 @@ PRODUCT_PACKAGES += \
     libwcnss_qmi \
     libwpa_client \
     hostapd \
-    dhcpcd.conf \
     wpa_supplicant \
     wpa_supplicant.conf \
     hostapd_default.conf \
@@ -255,8 +254,7 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libtinyxml2 \
     libnfnetlink \
-    libnetfilter_conntrack \
-    libdhcpcd
+    libnetfilter_conntrack
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     sys.init_log_level=8 \
